@@ -15,7 +15,7 @@ const BlogCard = ({ post }) => {
          className="group flex flex-col gap-5 cursor-pointer relative p-4 border border-gray-200/60 rounded-3xl bg-white hover:border-gray-300 transition-colors"
       >
          {/* Image Container with Hover Overlay */}
-         <div className="relative overflow-hidden rounded-2xl w-full aspect-[16/10] bg-gray-100">
+         <div className="relative overflow-hidden rounded-2xl w-full aspect-16/10 bg-gray-100">
             <img
                src={`https://picsum.photos/600/400?random=${id}`}
                alt={title}
@@ -29,7 +29,7 @@ const BlogCard = ({ post }) => {
             {/* Red circular arrow overlay */}
             <div className="absolute inset-0 flex items-start justify-end p-4 pointer-events-none overflow-hidden z-10 -top-1">
                <div className="w-12 h-12 rounded-full bg-[#e43333] shadow-lg flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 pointer-events-auto overflow-hidden">
-                  <svg className="w-5 h-5 transform translate-y-6 -translate-x-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500 ease-out delay-[50ms]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-5 h-5 transform translate-y-6 -translate-x-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500 ease-out delay-50ms" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                   </svg>
                </div>
@@ -51,7 +51,7 @@ const BlogCard = ({ post }) => {
                   Oct 12, 2023
                </span>
                <span className="flex flex-row items-center gap-1.5 text-[13px] font-semibold text-gray-400">
-                  <svg className="w-4 h-4 mb-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <svg className="w-4 h-4 mb-px" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   5 min read
                </span>
             </div>
