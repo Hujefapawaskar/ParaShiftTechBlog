@@ -39,11 +39,11 @@ const Blogs = () => {
   if (loading) return <SkeletonCard count={6} />;
   if (error) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-16 text-center">
-        <p className="text-lg font-semibold text-rose-300">{error}</p>
+      <div className="mx-auto max-w-xl px-4 py-24 text-center">
+        <p className="text-lg font-semibold text-red-600">{error}</p>
         <button
           onClick={getPostData}
-          className="mt-4 rounded-lg bg-slate-100 px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-white"
+          className="mt-4 rounded-lg bg-black px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800"
         >
           Try Again
         </button>
@@ -52,50 +52,56 @@ const Blogs = () => {
   }
 
   return (
-    <div className="relative mx-auto max-w-7xl overflow-hidden px-4 py-8 sm:px-6 lg:px-8">
-      <div className="pointer-events-none absolute -left-24 top-12 h-56 w-56 rounded-full bg-fuchsia-500/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 top-2 h-52 w-52 rounded-full bg-cyan-500/20 blur-3xl" />
-
+    <div className="mx-auto max-w-[1400px] px-4 py-16 sm:px-8 lg:px-12 bg-white">
+      
+      {/* Header Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="relative mb-8 rounded-3xl border border-slate-700/60 bg-linear-to-br from-slate-900/80 via-slate-900/70 to-indigo-950/65 p-6 shadow-lg shadow-black/30 backdrop-blur-md"
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6"
       >
-        <h1 className="bg-linear-to-r from-slate-100 via-violet-200 to-fuchsia-300 bg-clip-text text-2xl font-extrabold tracking-tight text-transparent sm:text-3xl">
-          Explore Latest Blogs
-        </h1>
-        <p className="mt-2 text-sm text-slate-300 sm:text-base">
-          Fresh reads, practical ideas, and bite-sized learning for your next project.
-        </p>
-        <p className="mt-3 inline-flex rounded-full border border-violet-400/30 bg-violet-500/20 px-3 py-1 text-xs font-semibold tracking-wide text-violet-100 sm:text-sm">
-          Showing {Math.min(visible, posts.length)} of {posts.length} posts
-        </p>
+        <div className="max-w-2xl">
+           <h1 className="text-4xl font-extrabold tracking-tight text-black sm:text-5xl lg:text-5xl mb-4">
+             Explore Latest Blogs
+           </h1>
+           <p className="text-base text-gray-500 sm:text-lg leading-relaxed">
+             Fresh reads, practical ideas, and bite-sized learning for your next project.
+           </p>
+        </div>
+        
+        <div className="shrink-0 flex items-center md:pb-2">
+           <p className="inline-flex rounded-full border border-gray-200 bg-gray-50 px-4 py-1.5 text-sm font-semibold tracking-wide text-gray-700">
+             Showing {Math.min(visible, posts.length)} of {posts.length} posts
+           </p>
+        </div>
       </motion.div>
 
+      {/* Grid */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.15, duration: 0.4 }}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
       >
         {visiblePosts.map((post) => (
           <BlogCard key={post.id} post={post} />
         ))}
       </motion.div>
 
+      {/* Load More Button */}
       {visible < posts.length && (
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-          className="mt-10 text-center"
+          transition={{ duration: 0.4 }}
+          className="mt-20 text-center"
         >
           <button
             onClick={handleLoadMore}
-            className="hover-gradient-lr rounded-full px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-900/50 hover:scale-[1.03] hover:brightness-110"
+            className="rounded-full bg-white border border-gray-200 px-8 py-3 text-[15px] font-semibold text-black transition hover:border-gray-900 hover:bg-gray-50 shadow-xs"
           >
-            Load More
+            Load More Posts
           </button>
         </motion.div>
       )}

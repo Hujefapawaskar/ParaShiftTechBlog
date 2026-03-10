@@ -2,74 +2,67 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const CARD_THEMES = [
-  {
-    glow: "bg-fuchsia-400/25",
-    tint: "from-fuchsia-500/20 via-violet-500/10 to-cyan-400/20",
-    button: "border-fuchsia-300/40 bg-fuchsia-500/25 text-fuchsia-100 hover:bg-fuchsia-700",
-  },
-  {
-    glow: "bg-cyan-400/25",
-    tint: "from-cyan-500/20 via-sky-500/10 to-indigo-400/20",
-    button: "border-cyan-300/40 bg-cyan-500/25 text-cyan-100 hover:bg-cyan-700",
-  },
-  {
-    glow: "bg-emerald-400/20",
-    tint: "from-emerald-500/20 via-teal-500/10 to-lime-400/15",
-    button: "border-emerald-300/40 bg-emerald-500/25 text-emerald-100 hover:bg-emerald-700",
-  },
-  {
-    glow: "bg-amber-400/20",
-    tint: "from-amber-500/20 via-orange-500/10 to-rose-400/15",
-    button: "border-amber-300/40 bg-amber-500/25 text-amber-100 hover:bg-amber-700",
-  },
-];
-
 const BlogCard = ({ post }) => {
-  const { id, title } = post;
-  const theme = CARD_THEMES[id % CARD_THEMES.length];
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      whileHover={{ y: -8, scale: 1.015 }}
-      
-      transition={{ type: "spring", stiffness: 210, damping: 20 }}
-      className="group relative overflow-hidden rounded-2xl border border-slate-200/35 bg-slate-900/20 shadow-md shadow-black/40 ring-1 ring-white/20 backdrop-blur-2xl transition-all hover:shadow-2xl hover:shadow-violet-900/40"
-    >
-      <div className={`pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full blur-3xl ${theme.glow}`} />
-      <div className="pointer-events-none absolute inset-0 bg-white/15 backdrop-blur-2xl" />
-      <div className={`pointer-events-none absolute inset-0 bg-linear-to-br ${theme.tint}`} />
-      <div className="relative overflow-hidden">
-        <img
-          src={`https://picsum.photos/600/400?random=${id}`}
-          alt={title}
-          loading="lazy"
-          decoding="async"
-          className="h-52 w-full object-cover transition duration-700 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/20 to-transparent" />
-        <span className="absolute left-3 top-3 rounded-full border border-slate-500/30 bg-slate-900/80 px-2.5 py-1 text-xs font-semibold text-slate-100 shadow-sm">
-          Blog #{id}
-        </span>
-      </div>
-      <div className="relative z-10 p-5">
-        <h2 className="line-clamp-2 bg-linear-to-r from-slate-100 to-indigo-300 bg-clip-text text-lg font-bold leading-snug text-transparent">
-          {title}
-        </h2>
-        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-300">
-          {post.body}
-        </p>
-        <Link
-          to={`/blogs/${id}`}
-          className={`mt-4 inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold transition hover:text-neutral-200 ${theme.button}`}
-        >
-          Read More →
-        </Link>
-      </div>
-    </motion.div>
-  );
+   const { id, title, body } = post;
+
+   return (
+      <motion.div
+         initial={{ opacity: 0, y: 20 }}
+         whileInView={{ opacity: 1, y: 0 }}
+         viewport={{ once: true, amount: 0.25 }}
+         whileHover={{ y: -6 }}
+         transition={{ duration: 0.4, ease: "easeOut" }}
+         className="group flex flex-col gap-5 cursor-pointer relative p-4 border border-gray-200/60 rounded-3xl bg-white hover:border-gray-300 transition-colors"
+      >
+         {/* Image Container with Hover Overlay */}
+         <div className="relative overflow-hidden rounded-2xl w-full aspect-[16/10] bg-gray-100">
+            <img
+               src={`https://picsum.photos/600/400?random=${id}`}
+               alt={title}
+               loading="lazy"
+               decoding="async"
+               className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
+
+            {/* Red circular arrow overlay */}
+            <div className="absolute inset-0 flex items-start justify-end p-4 pointer-events-none overflow-hidden z-10 -top-1">
+               <div className="w-12 h-12 rounded-full bg-[#e43333] shadow-lg flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-75 group-hover:scale-100 pointer-events-auto overflow-hidden">
+                  <svg className="w-5 h-5 transform translate-y-6 -translate-x-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500 ease-out delay-[50ms]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+               </div>
+            </div>
+         </div>
+
+         {/* Content Container */}
+         <div className="flex flex-col flex-1 px-1">
+            <h2 className="text-[20px] font-bold leading-snug text-[#050505] group-hover:text-[#e43333] transition-colors line-clamp-2 mb-2">
+               {title}
+            </h2>
+
+            <p className="text-[15px] leading-relaxed text-gray-500 line-clamp-2 mb-6 flex-1">
+               {body}
+            </p>
+
+            <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 pb-1">
+               <span className="text-[13px] font-semibold tracking-wide text-gray-400 uppercase">
+                  Oct 12, 2023
+               </span>
+               <span className="flex flex-row items-center gap-1.5 text-[13px] font-semibold text-gray-400">
+                  <svg className="w-4 h-4 mb-[1px]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  5 min read
+               </span>
+            </div>
+         </div>
+
+         {/* Make whole card clickable */}
+         <Link to={`/blogs/${id}`} className="absolute inset-0 z-10">
+            <span className="sr-only">Read more about {title}</span>
+         </Link>
+      </motion.div>
+   );
 };
 
 export default memo(BlogCard);
